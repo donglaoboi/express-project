@@ -29,11 +29,13 @@ class BaseService {
         let token = jwt.sign({ id: user.id }, process.env.PRIVATEKEY);
         return token;
       } else if (md5(password) === user.password && user.status === 0) {
-        //let timevalid = parseInt(process.env.TIMEVALID);
-        // user.verifyCodeValid = moment().local().add(timevalid, 'm');
-        // await user.save();
-        // let link = `${req.protocol}://${req.get('host')}/api/v1/users/verifyEmail/`;
-        // ultiFuntion.sendMail(user, link);
+        let timevalid = parseInt(process.env.TIMEVALID);
+        user.verifyCodeValid = moment().local().add(timevalid, "m");
+        await user.save();
+        let link = `${req.protocol}://${req.get(
+          "host"
+        )}/api/v1/users/verifyEmail/`;
+        ultiFuntion.sendMail(user, link);
         throw new ErrorResponse(
           HTTP.STATUSCODE.UNAUTHORIZED,
           HTTP.MESSAGE.USERNOTVERIFY

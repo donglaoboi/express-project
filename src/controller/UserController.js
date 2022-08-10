@@ -15,28 +15,6 @@ const Validate = require("../helper/Validate");
 const CONFIG = require("../config/Config");
 
 class UserController {
-  async resendEMail(req, res, next) {
-    try {
-      const { username, email } = req.body;
-      if (!username || !email) {
-        return next(
-          new ErrorResponse(
-            HTTP.STATUSCODE.BADREQUEST,
-            HTTP.ERRORCODE.BADREQUEST
-          )
-        );
-      }
-      await BaseService.resendEMail(req, username, email);
-      return new Response(
-        HTTP.STATUSCODE.SUCCESS,
-        HTTP.MESSAGE.CHECKMAILCONFIRMACCOUNT,
-        null
-      ).jsonResponse(res);
-    } catch (error) {
-      return next(new ErrorResponse(HTTP.STATUSCODE.BADREQUEST, error.message));
-    }
-  }
-
   async createUser(req, res, next) {
     const { username, password, email, age, phone, address } = req.body;
     if (!username || !password || !email || !phone || !address) {
