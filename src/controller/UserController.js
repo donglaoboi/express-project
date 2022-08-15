@@ -77,19 +77,6 @@ class UserController {
     }
   }
 
-  async verifyEmail(req, res, next) {
-    try {
-      await UserService.verifyEmail(req.params.token);
-      return new Response(
-        HTTP.STATUSCODE.SUCCESS,
-        HTTP.MESSAGE.CONFIGACCOUNT,
-        null
-      ).jsonResponse(res);
-    } catch (error) {
-      return next(new ErrorResponse(HTTP.STATUSCODE.BADREQUEST, error.message));
-    }
-  }
-
   async login(req, res, next) {
     const { username, password } = req.body;
     if (!username || !password) {

@@ -13,9 +13,6 @@ Router(app);
 const dbConnection = require("./config/Database");
 dbConnection;
 
-const swaggerDocs = require("./utils/Swagger");
-swaggerDocs(app);
-
 app.listen(PORT, () => {
   console.log(`Server listening ${PORT}`);
 });
